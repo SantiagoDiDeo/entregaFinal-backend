@@ -1,0 +1,7 @@
+[2023-05-15T18:23:37.802] [ERROR] default - User "test" already exists
+[2023-05-15T18:31:54.422] [ERROR] default - User "test" already exists
+[2023-05-15T21:15:55.209] [ERROR] default - Error: ReferenceError: id is not defined when modifying product 
+[2023-05-15T21:17:33.879] [ERROR] default - Error: ReferenceError: id is not defined when modifying product 
+[2023-05-15T21:18:15.021] [ERROR] default - Error: ReferenceError: id is not defined when modifying product 
+[2023-05-15T21:20:24.790] [ERROR] default - Error: ReferenceError: id is not defined when modifying product 
+[2023-05-17T10:07:58.068] [ERROR] default - Error CastError: Cast to number failed for value "undefined" (type undefined) at path "products.$" when trying to add product to cart
