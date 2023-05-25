@@ -2,11 +2,12 @@ import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 
 const userSchema = new Schema({
-    email: String,
     username: String,
     password: String,
+    email: String,
     address: String,
     age: Number,
+    phoneNumber: Number,
     avatar: String,
     createdAt: String
 });
@@ -18,7 +19,7 @@ const productSchema = new Schema({
     code: Number,
     price: Number,
     stock: Number,
-    category: String,
+    category: String,   
     thumbnail: String
 });
 productSchema._id = new mongoose.Types.ObjectId();

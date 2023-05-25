@@ -1,8 +1,11 @@
 import passport from 'passport';
 import {Strategy as LocalStrategy} from 'passport-local';
+import {Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
 import { compareSync, hashSync} from 'bcrypt';
 import { getAllUsersController, createUserController, getUserControllerByUsername } from '../../controller/users.js';
 import logger from '../../logger/logger.js';
+import jwt from 'jsonwebtoken';
+import { jwtKey } from '../../environments/env.js';
 
 
 passport.serializeUser((user, done) => {
@@ -23,37 +26,84 @@ passport.deserializeUser( async (username, done) => {
         };
 });
 
-passport.use('login', new LocalStrategy(async (username, password, done) => {
-    try {
-        const users = await getAllUsersController();
-        const user = users.find(user => user.username === username);
-        if (!user) {
-            logger.info(`(User ${username} not found)`);
-            return done(null, false, { message: 'User not found' });
+passport.use(
+    'jwt',
+    new JwtStrategy(
+        {
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            secretOrKey: "entregafinal123456", 
+        },
+        async (payload, done) => {
+            try {
+            const user = await getUserControllerByUsername( payload.username );
+            return done(null, user !== null ? user : false);
+            } catch (error) {
+            return done(error, false);
+            };
         }
-        if (compareSync(password, user.password)) {
-            return done(null, { username: username });
-        } else {
-            logger.info(`(User ${username} authentication failed)`);
-            return done(null, false, { message: 'Authentication failed' });
-        }
-    } catch (error) {
-        done(error);
-    }
-}));
+    )
+);
 
 
 passport.use('signup', new LocalStrategy(async (username, password, done) => {
     try {
         const existentUser = await getUserControllerByUsername(username);
         if (existentUser) {
-            return done(new Error('User already exists'));
+            logger.info(`Se intento registrar un usuario ya existente`)
+            return done( null, false )  
         } else {
-            const user = { username, password: hashSync(password, 10) };
-            const newUser = await createUserController(user);
-            return done(null, newUser);
+            return done( null, { username: username } )
         }
         } catch (error) {
-            logger.error(`Error ${error} trying to create user`);
+        logger.error(`Error in passport signup ${error}`);
         }
-}));
+    }));
+
+
+passport.use('login', new LocalStrategy(async (username, password, done) => {
+    try {
+        const existentUser = await getUserControllerByUsername(username);
+        if (!existentUser) {
+            return done(null, false, { message: 'Usuario no encontrado' });
+        }
+        
+        const passwordMatch = compareSync(password, existentUser.password);
+        if (!passwordMatch) {
+            return done(null, false, { message: 'Contraseña incorrecta' });
+        }
+        
+        return done(null, existentUser);
+        } catch (error) {
+        return done(error);
+        }
+    }));
+
+
+export const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['Authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if(token == null) {
+        return res.sendStatus(401);
+    }
+    jwt.verify(token, jwtKey, (err, user) => {
+        if(err) {
+            return res.sendStatus(403);
+        }
+        req.user = user;
+        next();
+    })
+}
+
+export const generateJwt = (username) => {
+    const payload = {
+        username: username
+    }
+    const options = {
+        expiresIn: 3600
+    }
+    return jwt.sign(payload, jwtKey, options);
+};
+    
+
+export default passport;

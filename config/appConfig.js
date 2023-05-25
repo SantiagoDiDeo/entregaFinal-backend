@@ -1,11 +1,11 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
 import session from 'express-session';
+import flash from 'connect-flash';
 import passport from 'passport';
 import path from 'path';
-import prodRouter from '../routes/prodRouter.js';
-import sessRouter from '../routes/sessionRouter.js';
-import infoRouter from '../routes/infoRouter.js';
+import sessionRouter from '../routes/sessionRouter.js';
+import productRouter from '../routes/productRouter.js';
 import * as url from 'url';
 
 const app = express();
@@ -18,20 +18,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({ secret: 'secreto1', resave: true, saveUninitialized: true }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.set('views', path.join(__dirname, 'views', 'hbs', 'partials'));
+app.set('views', path.join(__dirname, 'views', 'partials'));
 app.set('view engine', 'handlebars');
 app.engine('handlebars', engine({
     extname: '.hbs',
     defaultLayout: 'main.handlebars',
-    layoutsDir: path.join(__dirname, 'views', 'hbs', 'layouts'),
-    partialsDir: path.join(__dirname, 'views', 'hbs', 'partials')
+    layoutsDir: path.join(__dirname, 'views', 'layouts'),
+    partialsDir: path.join(__dirname, 'views', 'partials')
 }));
 
-app.use('/', sessRouter);
-app.use('/products', prodRouter);
-app.use('/info', infoRouter);
+app.use('/', sessionRouter);
+app.use('/products', productRouter);
+// app.use('/info', infoRouter);
 
 export default app;

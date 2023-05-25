@@ -32,7 +32,6 @@ if(!isConnected) {
             secret: 'secreto1',
             cookie: {maxAge: 60000},  
             resave: true,
-            collection: 'test',
             saveUninitialized: true,
             serverSelectionTimeoutMS: 30000,
         }));
