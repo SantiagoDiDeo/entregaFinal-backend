@@ -1,4 +1,4 @@
-import { chatDao } from "../DAO/chatDao";
+import { chatDao } from "../DAO/chatDao.js";
 
 const getAllChatsByUserDto = async (username) => {
     const chats = await chatDao.getAllChatsByUserDto(username);

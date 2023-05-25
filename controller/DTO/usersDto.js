@@ -9,30 +9,51 @@ const mapUser = (user) => user ?
         age: user.age,
         phoneNumber: user.phoneNumber,
         avatar: user.avatar,
-        cart: user.cart,
     }) : null;
 
 const getUsersDto = async() => {
-    const users = await userDao.getAllUsers({});
-    return users.map(user => mapUser(user));
+    try {
+        const users = await userDao.getAllUsers();
+        return users.map(user => mapUser(user));
+    } catch (error) {
+        throw new Error(`Failed to get usersDto: ${error}`);
+        }
 };
 
 const getUserByUsernameDto = async(username) => {
-    const returnedUser = await userDao.getUserByUsername(username);
-    return mapUser(returnedUser);
+    try {
+        const returnedUser = await userDao.getUserByUsername(username);
+        return mapUser(returnedUser);
+    } catch (error) {
+        throw new Error(`Failed to get user by usernameDto: ${error}`);
+    }
 };
 
 const createUserDto = async (user) => {
-    const newUser = await userDao.saveUser({
-        ...user,
-        createdAt: new Date().toLocaleString(),
+    try {
+        const existingUser = await userDao.getUserByUsername(user.username);
+        if (existingUser) {
+            throw new Error(`User "${user.username}" already exists`);
+        }
+    
+        const newUser = await userDao.saveUser({
+            ...user,
+            createdAt: new Date().toLocaleString(),
         });
-    return mapUser(newUser);
+    
+        return mapUser(newUser);
+    } catch (error) {
+        throw new Error(`Failed to create userDto: ${error}`);
+    }
 };
 
 const deleteUserDto = async (id) => {
-    const deletedUser = await userDao.deleteUser(id);
-    return deletedUser;
+    try {
+        const deletedUser = await userDao.deleteUser(id);
+        return deletedUser;
+    } catch (error) {
+        throw new Error(`failed to delete userDto: ${error}`);
+    }
 };
 
 export  { getUsersDto, createUserDto, deleteUserDto, getUserByUsernameDto };

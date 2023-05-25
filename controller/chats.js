@@ -1,4 +1,4 @@
-import { getAllChatsByUserDto, addMessageDto } from "./DTO/chatDto";
+import { getAllChatsByUserDto, addMessageDto } from "./DTO/chatDto.js";
 
 
 const getAllChatsByUserController = async (username) => {

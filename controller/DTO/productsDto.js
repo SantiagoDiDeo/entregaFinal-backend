@@ -10,6 +10,7 @@ const mapProduct = (product) => product ?
     code: product.code,
     price: product.price,
     stock: product.stock,
+    category: product.category,
     thumbnail: product.thumbnail,
 }) : null;
 

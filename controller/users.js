@@ -10,23 +10,40 @@ const getAllUsersController = async() => {
 };
 
 const getUserControllerByUsername = async (username) => {
-    const existentUser = await getUserByUsernameDto(username);
-    return existentUser;
+    try {
+        const existentUser = await getUserByUsernameDto(username);
+        return existentUser;
+    } catch (error) {
+        throw new Error(`error getting user ${username}`);
+    }
 };
 
 const createUserController = async (user) => {
-    const existingUser = await getUserControllerByUsername(user.username);
-
-    return existingUser
-        ? Promise.reject(logger.error(`User "${user.username}" already exists`))
-        : user.username && user.password && user.email
-        ? createUserDto(user)
-        : Promise.reject(logger.error(`Missing data`));
+    try {
+        const existingUser = await getUserControllerByUsername(user.username);
+    
+        if (existingUser) {
+            return { error: `User "${existingUser.username}" already exists` };
+        }
+    
+        if (!user.username || !user.password || !user.email) {
+            return { error: 'Missing data' };
+        }
+    
+        return createUserDto(user);
+        } catch (error) {
+        throw error;
+        }
 };
 
 const deleteUserController = async (id) => {
-    const deleteUser = await deleteUserDto(id);
-    return deleteUser;
+    try {
+        const deleteUser = await deleteUserDto(id);
+        return deleteUser;
+        
+    } catch (error) {
+        throw new Error(`failed to delete user ${id}`);
+    }
 };
 
 export  { createUserController, getAllUsersController, deleteUserController, getUserControllerByUsername };

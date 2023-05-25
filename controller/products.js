@@ -28,11 +28,8 @@ const createProductController = async ( productToAdd ) => {
         const existentProduct = await getProductByIdController(productToAdd.id)
 
         return existentProduct
-        ? Promise.reject(logger.error(`Product "${productToAdd.username}" already exists`))
-        : productToAdd.title && productToAdd.price && productToAdd.stock
-        ? addProductDto(productToAdd)
-        : Promise.reject(logger.error(`Missing data`));
-
+        ? logger.error(`Product "${productToAdd.title}" already exists`)
+        : addProductDto(productToAdd);
 };
 
 const modifyProductByIdController = async (id, productToUpdate) => {
