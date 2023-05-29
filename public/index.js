@@ -1,173 +1,173 @@
-import logger from "../logger/logger";
 import io from 'socket.io';
-
 const socket = io.connect();
 
+//chat
 const userEmail = document.getElementById('userEmail');
-const userName = document.getElementById('userName');
-const userSurname = document.getElementById('userSurname');
-const userAge = document.getElementById('userAge');
-const userNickname = document.getElementById('userNickname');
-const userAvatar = document.getElementById('userAvatar');
 const userMensaje = document.getElementById('userMensaje');
+//products
+const cartList = document.getElementById('cart');
+const cartForm = document.getElementById('cartForm');
+const submitLogin = document.getElementById('submitLogin')
+//login
+const usernameInput = document.getElementById('usernameInput');
+const passwordInput = document.getElementById('passwordInput');
+//register
+const inputRegister = document.getElementsByClassName('inputRegister');
 
-const myButton = document.getElementById('logout');
-myButton.addEventListener('click',  () => {
-  try {
-    window.location.href = '/logout';
-    return;
-  } catch (err) {
-    logger.error(Error('err'));
-    //console.log(`ERRORRRR ${err}`);
-  };
+/* TOAST */
+function toast (mensaje, color1, color2) {
+  Toastify({
+    text: mensaje,
+    duration: 4000,
+    newWindow: true,
+    gravity: "top", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: `linear-gradient(to right, ${color1}, ${color2})`,
+    },
+    onClick: function(){} // Callback after click
+  }).showToast()
+}
 
-});
+const handleRegister = async() => {
 
-socket.on('connect', () => {
-    logger.info('socket connected');
-});
+  let emptyInputs = 0;
 
-//agregar nuevo producto
-let formulario = document.getElementById('formProducts');
+  for (let i = 0; i < inputRegister.length; i++) {
+    if (inputRegister[i].value === '') {
+      emptyInputs++;
+    }
+  }
 
-const formAddE = async () => {
+  if (emptyInputs > 0) {
+    toast('Complete todos los campos', '#E74C3C', '#922B21')
+  } else {
+    toast('usuario registrado con exito', '#2ECC71', '#82E0AA')
+  }
+}
 
-    formulario = await formulario.addEventListener('submit',  e => {
-        e.preventDefault();
-        const product = {
-            "title": title.value,
-            "description": description.value,
-            "code": code.value,
-            "price": price.value,
-            "stock": stock.value,
-            "category": category.value,
-            "thumbnail": thumbnail.value
-        };
-        socket.emit('newProduct', product);
+/* HANDLERS */
+const handleLogin = async() => {
+
+    if(usernameInput.value === '' || passwordInput.value === '') {
+      toast('Debe completar todos los datos', '#E74C3C', '#922B21')
         
-        });
+    } else { 
+      toast('login exitoso', '#2ECC71', '#82E0AA')
+      window.location.href = '/products';
+      // const data = {
+      //   username: usernameInput.value
+      // }
+      // console.log(data, 'here data')
+      // const response = await fetch(`http://localhost:8080/login/`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify(data)
+        
+      // })
+      // .then((response) => location.replace('http://localhost:8080/products'))
+    }
+  }
 
+const handleAddCartProduct = (id,code, title, price) => {
+
+  let productCounter = document.querySelector(`#product_${code}`);
+  let counterValue = +productCounter.textContent + 1;
+
+  productCounter.innerText = `${counterValue}`;
+
+  const modifiedItem = document.getElementById(`cart_${id}`);
+  if(modifiedItem){
+    modifiedItem.textContent = `id: ${id} cantidad: ${counterValue} producto: ${title} precio: ${price}`
+  }else {
+
+    const li = document.createElement('li');
+    li.setAttribute('id',`cart_${id}`);
+    const div = document.createElement('div');
+    div.innerText =`id: ${id} cantidad: ${counterValue} producto: ${title} precio: ${price}`
+    li.appendChild(div);
+    cartList.appendChild(li);
+  };
 };
 
+const handleDeleteCartProduct = (id, code, title, price) => {
+  const itemToDelete = document.getElementById(`cart_${id}`);
+  const cuantityText = itemToDelete.textContent.split(" ");
+  let productCounter = document.querySelector(`#product_${code}`);
 
+  if(cuantityText[3] === "1"){
+    itemToDelete.remove()
+    productCounter.innerText = `0`
+  } else {
+    let newCuantity = +cuantityText[3] - 1;
+    itemToDelete.innerText =`id: ${id} cantidad: ${newCuantity} producto: ${title} precio: ${price}`
+    productCounter.innerText = `${newCuantity}`
+  };
+};
 
+const handleBuy = () => {
 
-//lista productos
-socket.on('products',  (data) => {
-    
-    let htmlToRender = `
-  <table class="table container">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">descripcion</th>
-        <th scope="col">Codigo</th>
-        <th scope="col">Precio</th>
-        <th scope="col">Stock</th>
-        <th scope="col">categoria</th>
-        <th scope="col">Foto</th>
-      </tr>
-    </thead>
-    </tbody>`;
-   
-    data.forEach(( element) => {
-        htmlToRender = htmlToRender + `
-        <tr>
-          
-          <td>${element.title}</td>
-          <td>${element.description}</td>
-          <td>${element.code}</td>
-          <td>${element.price}</td>
-          <td>${element.stock}</td>
-          <td>${element.category}</td>
-          <td><img src=${element.thumbnail} style="max-width: 50px; height: auto;"</td>
-        </tr>` 
-    
+  if(cartList.childNodes.length > 1) {
+
+    const data = {
+      username: "",
+      products: null,
+      address: ""
+    }
+
+    Array.from(cartList.childNodes).forEach(item => {
+
+      const text = item.textContent.split(" ");
+      data.products = !data.products ? [{productId: text[1], cantidad:text[3], producto:text[5], precio:text[7]}] : [...data.products, {productId: text[1], cantidad:text[3], producto:text[5], precio:text[7]}]
+
     });
-    htmlToRender = htmlToRender + '</tbody></table>';
-    document.getElementById('tableProducts').innerHTML = htmlToRender;
-});
-
-
-
-
-//chat
-socket.on('chat', async (data) => {
-        
-    htmlToRender = '';
-    await data.forEach((element) => {
-
-        htmlToRender = htmlToRender + `
-        <tr>
-            <th><h1 class='user'>${element.email}</h1></th>
-            <th><h1 class='mensaje'>${element.message}</h1></th>
-            <th><h1 class='date'>${element.date}</h1></th>
-        </tr>
-        `
+    sessionStorage.setItem('cart', data);
+    cartForm.addEventListener('submit', async (e) => {
+      data.products.shift()
+      e.preventDefault();
+      await fetch(`http://localhost:8080/products`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+      });
+      window.location.href = '/cart';
     });
+  }; 
+};
 
-    document.getElementById('message').innerHTML = htmlToRender;
-    });
+/* CHAT - SOCKET */
+// socket.on('connect', () => {
+//     console.log('socket connected');
+// });
+
+// socket.on('chat', async (data) => {
     
+//     htmlToRender = '';
+//     await data.forEach((element) => {
 
-    // const validateEmail = (mail) => {
-    //   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
-    //   if (regex.test(mail)) {
-    //     return true; 
-    //   } else {
-    //     alert("El mail ingresado no es válido."); 
-    //     return false;
-    //   };
-    // };
+//         htmlToRender = htmlToRender + `
+//         <tr>
+//             <th><h1 class='user'>${element.username}</h1></th>
+//             <th><h1 class='mensaje'>${element.message}</h1></th>
+//         </tr>
+//         `
+//     });
+
+//     document.getElementById('message').innerHTML = htmlToRender;
+//     });
   
-//   const addMessage = async () => {
- 
-//     const messageToAdd =  {
-//       author: {
-//         id: userEmail.value,
-//         name: userName.value,
-//         usersurname: userSurname.value,
-//         age: userAge.value,
-//         nickname: userNickname.value,
-//         avatar: userAvatar.value
-//       },
-//       text: userMensaje.value
-//     };
-    
-//     userMensaje.value = '';
+// const addMessage = async (messageToAdd) => {
 
-
-// if(validateEmail(messageToAdd.author.id)) {
-
-//    await socket.emit('newMessage', messageToAdd);
+//     messageToAdd =  {
+//         username: userEmail.value,
+//         body: userMensaje.value
+//       }
+// if(messageToAdd.username) {
+//     await socket.emit('newMessage', messageToAdd);
 //   };
 // };
-
-
-const handleRouteCart = async () => {
-  const req = await fetch(`http://localhost:8080/cart`, {
-      method: 'POST',
-  })
-  window.location = `${req.url}`
-}
-const handleAddCartProduct = async (id) => {
-  const res = await fetch(`http://localhost:8080/cart/${id}/products`,{
-      method: 'POST',
-  })
-}
-const handleDeleteCartProduct = async (id, idProd) => {
-  const res = await fetch(`http://localhost:8080/cart/${id}/products/${idProd}`,{
-      method: 'DELETE',
-  })
-  window.location.reload()
-}
-const handleDeleteCart = async (id) => {
-  const res = await fetch(`http://localhost:8080/cart/${id}`,{
-      method: 'DELETE',
-  })
-  window.location = `http://localhost:8080/products`
-}
-const handleBuyCart = async () =>{
-  const req = await fetch(`http://localhost:8080/cart/buy`)
-}

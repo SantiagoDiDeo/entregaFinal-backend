@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 import { hostEmail, emailUser, emailPass} from '../environments/env.js';
 import logger from '../logger/logger.js';
 
-export const handleSendEmail = async (test, subject, to) => {
+export const handleSendEmail = async (text, subject, to) => {
     const transporter = nodemailer.createTransport({
         host: hostEmail,
         port: 587,

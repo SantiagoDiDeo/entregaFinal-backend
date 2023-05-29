@@ -8,3 +8,4 @@ export const hostEmail = process.env.EMAIL_HOST;
 export const emailUser = process.env.EMAIL_USER;
 export const emailPass = process.env.EMAIL_PASS; 
 export const jwtKey = process.env.JWT_SECRET_KEY;
+export const userSessionTime = process.env.USER_SESSION_TIME;
