@@ -2,11 +2,15 @@ import { getUsersDto, createUserDto, deleteUserDto, getUserByUsernameDto} from '
 import logger from '../logger/logger.js';
 
 const getAllUsersController = async() => {
-    const getUser = await getUsersDto( {} );
-    if (getUser.length === 0) {
-        return [];
-    };
-    return getUser;
+    try {
+        const getUser = await getUsersDto( {} );
+        if (getUser.length === 0) {
+            return [];
+        };
+        return getUser;   
+    } catch (error) {
+        logger.error(`${error} --Error al intentar encontrar usuarios controller`);
+    }
 };
 
 const getUserControllerByUsername = async (username) => {
@@ -14,35 +18,34 @@ const getUserControllerByUsername = async (username) => {
         const existentUser = await getUserByUsernameDto(username);
         return existentUser;
     } catch (error) {
-        throw new Error(`error getting user ${username}`);
+        logger.error(`${error} --Error intentando encontrar usuario controller: ${username}`);
     }
 };
 
 const createUserController = async (user) => {
     try {
         const existingUser = await getUserControllerByUsername(user.username);
-    
+        
         if (existingUser) {
-            return { error: `User "${existingUser.username}" already exists` };
-        }
-    
+            logger.warn(`Usuario "${existingUser.username}" ya existe`);
+            return false;
+        };
+        
         if (!user.username || !user.password || !user.email) {
-            return { error: 'Missing data' };
+            logger.warn('--Error: falta informacion en los campos')
         }
-    
         return createUserDto(user);
-        } catch (error) {
-        throw error;
-        }
+    } catch (error) {
+        logger.error(`${error} --Error al intentar crear usuario controller`);
+    }
 };
 
 const deleteUserController = async (id) => {
     try {
         const deleteUser = await deleteUserDto(id);
         return deleteUser;
-        
     } catch (error) {
-        throw new Error(`failed to delete user ${id}`);
+        logger.error(`${error} --Error al intentar borrar usuario controller con id: ${id}`);
     }
 };
 
