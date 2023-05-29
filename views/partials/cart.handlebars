@@ -1,7 +1,54 @@
-<div class="container text-center"><h2>Your cart</h2></div>
-{{>table}}
+<div class="container text-center"><h2>Carrito de compras</h2></div>
+<div class="col-8 bg-light">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                {{#each products}}
+                    <tr>
+                        <th scope="row">#</th>
+                        <td>{{title}}</td>
+                        <td>{{description}}</td>
+                        <td>{{code}}</td>
+                        <td>${{price}}</td>
+                        <td>{{stock}}</td>
+                        <td>{{category}}</td>
+                        <td><img style="width: 50px; height: 50px" src={{thumbnail}} ></img></td>
+                        <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <th>TOTAL</th>
+                        <th id="totalCart"></th>
+                        </tr>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
 <div class="container">
-    <button class="btn btn-danger" onclick="handleDeleteCart('{{user._id}}')">Delete all products</button>
-    <button class="btn btn-success" onclick="handleBuyCart()">Buy</button>
+    <button class="btn btn-danger" onclick="handleDeleteCart('{{user._id}}')">Borrar carrito</button>
+    
+    <form action="/cart/order" method="post">
+    
+    <button class="btn btn-success" type="submit">Comprar</button>
+    </form>    
+
 </div>
-<script src="../../public/index.js"></script>
+<div>
+    <form action="/logout" method="post">
+    
+    <button class="btn  btn-dark" id="logout" type="submit">Logout</button>
+    </form>
+</div>

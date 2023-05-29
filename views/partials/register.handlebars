@@ -1,0 +1,50 @@
+{{!-- formulario post --}}
+{{!-- signup y login --}}
+<section class='p-4 bg-secondary'>
+    <h2>Signup</h2>
+    <form action="/signup" method="post">
+    <div >  
+        <span>username</span>
+        <input  class="inputRegister form-control" type="text" name="username" >
+    </div>
+    <div >
+        <span>password</span>
+        <input class="inputRegister form-control" type="password" name="password">
+    </div>
+    <div>  
+        <span>email</span>
+        <input class="inputRegister form-control" type="email" name="email">
+    </div>
+    <div>  
+        <span>address</span>
+        <input class="inputRegister form-control" type="text" name="address">
+    </div>
+    <div>  
+        <span>age</span>
+        <input class="inputRegister form-control" type="number" name="age">
+    </div>
+    <div>  
+        <span>phone number</span>
+        <input class="inputRegister form-control" type="number" name="phoneNumber">
+    </div>
+    <div>
+        <label for="avatar">Avatar</label>
+        <input class="form-control" type="file" id="avatar" name="avatar" accept="image/*">
+    </div>
+    <button class="btn  btn-dark" type="submit" onclick="handleRegister()">Submit</button>
+</form>
+<h2>login</h2>
+<form action="/login" method="post">
+    <div >
+        <span>username</span>
+        <input class="form-control" type="text" name="username" id="usernameInput" autocomplete="on">
+    </div>
+    <div>
+        <span>password</span>
+        <input class="form-control" type="password" name="password" id="passwordInput" autocomplete="on">
+    </div>
+    <button id="submitLogin" class="btn  btn-dark" type="submit" onclick="handleLogin()">Submit</button>
+</form>
+    
+
+</section>

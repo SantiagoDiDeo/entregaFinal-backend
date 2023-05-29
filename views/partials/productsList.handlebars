@@ -1,33 +1,55 @@
-<div class="container bg-light">
-    <h2 class="text-danger fw-bold">List Products</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Codigo</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Foto</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody id="table-body">
-            {{#each products}}
+<div class="container row">
+    <div class="col-8 bg-light">
+        <h2 class="text-danger fw-bold text-center">Lista de productos</h2>
+        <table class="table">
+            <thead class="thead-dark">
                 <tr>
-                    <th scope="row"></th>
-                    <td>{{title}}</td>
-                    <td>{{description}}</td>
-                    <td>{{code}}</td>
-                    <td>${{price}}</td>
-                    <td>{{stock}}</td>
-                    <td>{{category}}</td>
-                    <td><img style="width: 50px; height: 50px" src={{thumbnail}}></img></td>
-                    {{#if ../list}}<td><button class="btn btn-success" onclick="handleAddCartProduct('{{_id}}')">+</button></td>{{/if}}
-                    {{#if ../cart}}<td><button class="btn btn-danger" onclick="handleDeleteCartProduct('{{../user._id}}','{{_id}}',)">-</button></td>{{/if}}
+                    <th scope="col"></th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col"></th>
                 </tr>
-            {{/each}}
-        </tbody>
-    </table>
+            </thead>
+            <tbody id="table-body">
+                {{#each products}}
+                    <tr>
+                        <th scope="row">#</th>
+                        <td>{{title}}</td>
+                        <td>{{description}}</td>
+                        <td>{{code}}</td>
+                        <td>${{price}}</td>
+                        <td>{{stock}}</td>
+                        <td>{{category}}</td>
+                        <td><img style="width: 50px; height: 50px" src={{thumbnail}} ></img></td>
+                        <td><button class="btn btn-success" onclick="handleAddCartProduct('{{_id}}','{{code}}','{{title}}','{{price}}')">+</button></td>
+                        <td><span id="product_{{code}}">0</span></td>
+                        <td><button class="btn btn-danger" onclick="handleDeleteCartProduct('{{_id}}','{{code}}','{{title}}','{{price}}')">-</button></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <div class="text-center">
+            <form id="cartForm" action="/products" method="POST">
+            
+            <button type="submit"  class="btn  btn-dark" onclick="handleBuy()">iniciar compra</button>
+            </form>
+        </div>
+    </div>
+    <div class=" col-4">
+        <ul id="cart">
+
+        </ul>
+    </div>
 </div>
+<div>
+    <form action="/logout" method="post">
+    
+    <button class="btn  btn-dark" id="logout" type="submit">Logout</button>
+    </form>
+</div>
+<script src="/public/index.js"></script>
