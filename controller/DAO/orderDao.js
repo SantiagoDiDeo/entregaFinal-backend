@@ -5,16 +5,24 @@ import logger from '../../logger/logger.js';
 
 class OrderDao {
 
-    async newOrder (order) {
+    getOrderByUsername = async(username) => {
         try {
             await connectToDb();
-            const orderNumber = await orderModel.countDocuments();
-            const newOrder = new orderModel({...order, ordernumber: orderNumber + 1});
+            const orderByUsername = await orderModel.findOne({username: username});
+            return orderByUsername;
+        } catch (error) {
+            logger.error(`${error} --Error intentando encontrar orden de username: ${username}`);
+        }
+    }
+
+    newOrder = async (order) => {
+        try {
+            await connectToDb();
+            const newOrder = new orderModel(order);
             await newOrder.save()
-            .then(order => logger.info(`purchase order added to database with order ID: ${order._id}`));
             return newOrder;
         } catch (err) {
-            logger.error(`${err}: error trying to purchase order`);
+            logger.error(`${err} --Error intentando agregar nueva orden ${order}`);
             return false;
         };
     };

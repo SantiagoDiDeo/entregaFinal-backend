@@ -6,11 +6,23 @@ const imageUrl = ( url ) => {
     return ext.test( url );
 };
 
+const getProductsRouter = async (req, res, route, id) => {
+    try{
+        const list = (route === 'productsList');
+        if(id) {
+            const products = await getProductsByIdDto(id);
+            res.render(route, { products});
+            return;
+        };
+        const products = await getAllProductsDto();
+        res.render(route, { products, list });
+    }catch(error){
+        console.log(`${error} --Error (getProductsRouter) al traer productos`);
+    }
+};
+
 const getAllProductsController = async() => {
-    const getProducts = await getAllProductsDto({});
-    if (getProducts.length === 0) {
-        return [];
-    };
+    const getProducts = await getAllProductsDto({}) || [];
     return getProducts;
 };
 
@@ -22,14 +34,14 @@ const getProductByIdController = async( id ) => {
 const getProductByCategoryController = async (category) => {
     const product = await getProductByCategoryDto(category);
     return product;
-}
+};
 
 const createProductController = async ( productToAdd ) => {
-        const existentProduct = await getProductByIdController(productToAdd.id)
-
+        const existentProduct = await getProductByIdController(productToAdd.id);
+        
         return existentProduct
-        ? logger.error(`Product "${productToAdd.title}" already exists`)
-        : addProductDto(productToAdd);
+                    ? logger.warn(`Product "${productToAdd.title}" already exists`)
+                    : addProductDto(productToAdd);
 };
 
 const modifyProductByIdController = async (id, productToUpdate) => {
@@ -37,28 +49,18 @@ const modifyProductByIdController = async (id, productToUpdate) => {
         const updatedProduct = await modifyProductByIdDto(id, productToUpdate);
         return updatedProduct ? updatedProduct : false;
     } catch (error) {
-        logger.error(`Error: "${error}" when modifying product`);
-        throw error;
+        logger.error(`${error} --Error al intentar modificar producto controller id: ${id}`);
     }
 };
 
 const deleteProductByIdController = async (id) => {
     try {
     const deletedProduct = await deleteProductByIdDto(id);
-    return {
-        success: true,
-        message: `Product with id ${id} was deleted`,
-        data: deletedProduct
-        };
+    return deletedProduct ? deletedProduct : false;
     } catch (error) {
-    return {
-        success: false,
-        message: `Error deleting product with id ${id}`,
-        error: error.message
-        };
+            logger.error(`${error} --Error al intentar borrar producto controller con id: ${id}`);
     };
 };
-
 
 const deleteAllProductsController = async() => {
 //commented for security reasons.
@@ -66,5 +68,4 @@ const deleteAllProductsController = async() => {
 //   return;
 };
 
-
-export  { createProductController, getAllProductsController, getProductByIdController, getProductByCategoryController, modifyProductByIdController, deleteAllProductsController, deleteProductByIdController };
+export  { createProductController, getAllProductsController, getProductByIdController, getProductByCategoryController, modifyProductByIdController, deleteAllProductsController, deleteProductByIdController, getProductsRouter };

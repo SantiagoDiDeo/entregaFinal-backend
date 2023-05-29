@@ -1,12 +1,12 @@
 import {createCartDto, getCartByUsernameDto, updateCartDto, deleteCartDto, deleteCartItemDto} from './DTO/cartDto.js';
-import {getAllProductsController} from '../controller/products.js'
+import logger from '../logger/logger.js';
 
 const createCartController = async(username, address ) => {
     try {
     const newCart = await createCartDto(username, address);
     return newCart;
     } catch (error) {
-    throw new Error (`Error: ${error}`);
+    logger.error(`${error} --Error al intentar crear carrito controller`);
     };
 };
 
@@ -15,7 +15,7 @@ const getCartByUsernameController = async(username) => {
     const cart = await getCartByUsernameDto(username);
     return cart;
     } catch (error) {
-        throw new Error (`Error: ${error}`);
+        logger.error(`${error} --Error al intentar encontrar usuario controller: ${username} `);
     };
 };
 
@@ -24,7 +24,7 @@ const updateCartController = async (cartId, updatedCartData) => {
     const updatedCart = await updateCartDto(cartId, updatedCartData);
     return updatedCart;
     } catch (error) {
-        throw new Error (`Error: ${error}`);
+        logger.error(`${error} --Error al intentar actualizar carrito controller id: ${cartId}`);
     };
 };
 
@@ -33,28 +33,17 @@ const deleteCartController = async(cartId) => {
     const deletedCart = await deleteCartDto(cartId);
     return deletedCart;
     } catch (error) {
-        throw new Error (`Error: ${error}`);
+        logger.error(`${error} --Error al intentar eliminar carrito controller id: ${cartId}`);
     };
 };
 
-const deleteCartItemController = async(cartId, itemName) => {
+const deleteCartItemController = async(cartId, itemTitle) => {
     try {
-    const updatedCart = await deleteCartItemDto(cartId, itemName);
+    const updatedCart = await deleteCartItemDto(cartId, itemTitle);
     return updatedCart;
     } catch (error) {
-        throw new Error (`Error: ${error}`);
-
+        logger.error(`${error} --Error al intentar borrar item de carrito controller id: ${cartId}`);
     };
 };
 
-const newOrderController = async(username) => {
-    const cart = await getCartByUsernameController(username);
-    if(cart.products.length === 0) return false;
-
-    const products = await getAllProductsController();
-    
-
-}
-
-export { createCartController, getCartByUsernameController, updateCartController, deleteCartController, deleteCartItemController, newOrderController
-};
+export { createCartController, getCartByUsernameController, updateCartController, deleteCartController, deleteCartItemController};

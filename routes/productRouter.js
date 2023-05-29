@@ -1,71 +1,113 @@
-import express from 'express';
+import express, { response } from 'express';
 const { Router } = express;
-import { createProductController, getAllProductsController, getProductByIdController, deleteProductByIdController } from '../controller/products.js';
+import { createProductController, getAllProductsController, getProductByIdController, deleteProductByIdController, getProductsRouter, getProductByCategoryController, modifyProductByIdController } from '../controller/products.js';
 import passport from '../DB/config/auth.js';
 import '../DB/config/auth.js';
 import logger from '../logger/logger.js';
+import { createCartController } from '../controller/carts.js';
 
 const productRouter = Router();
 
 productRouter.use(passport.initialize());
 productRouter.use(passport.session());
 
-productRouter.get('/', async ( req, res, route, id ) => {
+productRouter.get('/', async ( req, res) => {
     try {
-        const user = req.session.passport.user;
-        const list = route === 'products' ? true : false
-        if(id) {
-            const product = await getProductByIdController(id);
-            res.render(route, {product})
-            return;
-        }
         const products = await getAllProductsController();
-        console.log("🚀 ~ file: productRouter.js:23 ~ productRouter.get ~ products:", products)
-        res.render(route, {products, user, list});
+        res.render('productsList', {products})
     } catch ( err ) {
-        throw new Error(err);
+        logger.error(`${err} --Error al intentar renderizar lista de productos route`);
     };
-
 });
 
-//get products by id
-productRouter.get('/:id?', async ( req, res ) => {
-    const id = req.params.id;
-    const product = await getProductByIdController(id);
-    product ? res.render( JSON.stringify(product, null, 2) )
-    : res.status(404).send({ error: 'producto no encontrado'})  ;
-
-});
-
-//post product
 productRouter.post('/', async (req, res) => {
-    const productToAdd = await req.body;
-    await createProductController(productToAdd);
-    res.send({ message: 'producto agregado', product: productToAdd});
+    try {
+        let data = await req.body;
+        const username = 'juancarlos1'; //aca va req.session.passport.user.username
+        const address = 'casa'; //aca va req.session.passport.user.address
+
+        let newData = {
+            username: username,
+            products: data.products,
+            address: address
+        };
+        const newCart = await createCartController(newData.username, newData.address);
+        if(newCart) {
+            logger.warn(`carrito ${newCart} creado exitosamete`)
+            res.status(200).send('Carrito creado exitosamente');
+        }
+    } catch (err) {
+        logger.error(`${err} --Error al intentar hacer post de productos route`);
+    };
 });
 
-//update product
+productRouter.get('/admin', async ( req, res) => {
+    try {
+        const { id } = req.params
+        await getProductsRouter(req, res, 'productsAdmin', id)
+        res.status(200)
+    } catch ( err ) {
+        logger.error(`${err} --Error al intentar renderizar ruta de product-admin`)
+    };
+});
+
+productRouter.get('/:id', async ( req, res ) => {
+    try {
+        const { id } = req.params
+        await getProductsRouter(req, res, 'productsList', id)
+        res.status(200)
+    } catch ( err ) {
+        logger.error(`${err} --Error al intentar renderizar productos por id route`);
+    };
+});
+
+productRouter.get('/category/:category', async (req, res) => {
+    try {
+        const category = req.params.category;
+        const products = await getProductByCategoryController(category);
+        res.render('productsList', {products})
+    } catch (error) {
+        logger.error(`${error} --Error al intentar renderizar productos por categoria`);
+    };
+});
+
+productRouter.post('/admin', async (req, res) => {
+    try {
+        const productToAdd = await req.body;
+        await createProductController(productToAdd);
+        res.redirect('/products');
+    } catch (error) {
+        logger.error(`${error} --Error al intentar hacer post de producto añadido`);
+    };
+});
+
 productRouter.put('/:id', async ( req, res ) => {
-    const id = req.params.id;
-    const  replace  = req.body;
-
-    if(await createProductController( id )){
-        res.send({ message: 'producto modificado', product: replace});
-        } else {
-        res.status(404).send({ error: 'producto no encontrado'});
-        };
+    try {
+        const id = req.params.id;
+        const  replace  = req.body;
     
+        if(await modifyProductByIdController( id, replace )){
+            res.send({ message: 'producto modificado', product: replace});
+            } else {
+            res.status(404).send({ error: 'producto no encontrado'});
+            };
+    } catch (error) {
+        logger.error(`${error} --Error al intentar modificar producto en ruta put`);
+    };
 });
 
-//delete product
 productRouter.delete('/:id', async ( req, res ) => {
-    const { id } = req.params;
-
-    if (await deleteProductByIdController(id)) {
-        res.send({ message: 'producto borrado'});
-        } else {
-        res.status(404).send({ error: 'producto no encontrado'});
+    try {
+        const { id } = req.params;
+        
+        if (await deleteProductByIdController(id)) {
+            res.send({ message: 'producto borrado'});
+            } else {
+            res.status(404).send({ error: 'producto no encontrado'});
         };
+    } catch (error) {
+        logger.error(`${error} --Error al intentar borrar producto en route`);
+    };
 });
 
 export default productRouter;

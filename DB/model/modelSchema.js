@@ -35,7 +35,7 @@ const orderSchema = new Schema({
     timestamp: { type: Date, default: Date.now },
     products: Array,
     username: String,
-    sendaddress: String,
+    address: String,
     ordernumber:Number,
     state: { type: String, default: 'generada'}
 });

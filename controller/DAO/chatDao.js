@@ -10,23 +10,22 @@ class ChatDao {
             const chats = await chatModel.find({ username: username});
             return chats;
         } catch (err) {
-            logger.warn(`Error: ${err} trying to get user chat`)
+            logger.error(`${err} --Error intentando encontrar chat de username: ${username}`);
         };
     };
 
-    async addMessage(username, type, body) {
+    async addMessage(username, body) {
 
         try {
             await connectToDb();
             const newMessage = new chatModel({
                 username: username,
-                type: type,
                 body: body
             });
             await newMessage.save();
             return true;
         } catch(err) {
-            logger.warn(`Error: ${err} trying to add message to db`);
+            logger.error(`${err} --Error intentando guardar chat de username: ${username}`);
         };
     };
 };

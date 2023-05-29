@@ -69,3 +69,7 @@
 [2023-05-22T20:56:41.622] [ERROR] default - Error ReferenceError: req is not defined
 [2023-05-22T21:00:18.887] [ERROR] default - Error ReferenceError: req is not defined
 [2023-05-22T21:51:28.678] [ERROR] default - Error ReferenceError: req is not defined
+[2023-05-29T15:58:27.570] [ERROR] default - TypeError: chatDao.getAllChatsByUserDto is not a function --Error al buscar chat por params.username
+[2023-05-29T16:11:46.799] [ERROR] default - TypeError: chatDao.getAllChatsByUserDto is not a function --Error al buscar chat por params.username
+[2023-05-29T16:12:43.570] [ERROR] default - TypeError: chatDao.getAllChatsByUserDto is not a function --Error al buscar chat por params.username
+[2023-05-29T16:30:21.673] [ERROR] default - TypeError: chatDao.getAllChatsByUserDto is not a function --Error al buscar chat por params.username

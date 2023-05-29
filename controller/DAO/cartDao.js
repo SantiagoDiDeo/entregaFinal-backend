@@ -1,5 +1,5 @@
 import connectToDb from '../../DB/config/connectToDb.js';
-import {cartModel, userModel} from '../../DB/model/modelSchema.js';
+import {cartModel} from '../../DB/model/modelSchema.js';
 import logger from '../../logger/logger.js';
 
 class CartDao {
@@ -15,24 +15,24 @@ class CartDao {
             await cart.save();
             return cart;
             } catch (error) {
-            throw new Error(`Error creating cart: ${error}`);
+            logger.error(`${error} --Error al intentar crear carrito `);
             }
-        }
-        
+        };
+
         async getCartByUsername(username) {
             try {
             await connectToDb();
-            const cart = await cartModel.findOne({ username });
+            const cart = await cartModel.findOne({ username: username });
             if (cart) {
                 return cart;
             } else {
-                throw new Error(`Cart not found for username: ${username}`);
+                logger.warn(`--Error: Carrito no encontrado con username: ${username}`);
             }
             } catch (error) {
-            throw new Error(`Error retrieving cart: ${error}`);
+                logger.error(`${error} --Error recuperando carrito`);
             }
-        }
-        
+        };
+
         async updateCart(cartId, updatedCartData) {
             try {
             await connectToDb();
@@ -44,13 +44,13 @@ class CartDao {
             if (cart) {
                 return cart;
             } else {
-                throw new Error(`Cart not found for ID: ${cartId}`);
+                logger.warn(`--Carrito no encontrado con ID: ${cartId}`);
             }
             } catch (error) {
-            throw new Error(`Error updating cart: ${error}`);
+            logger.warn(`${error} --Error actualizando carrito`);
             }
-        }
-        
+        };
+
         async deleteCart(cartId) {
             try {
             await connectToDb();
@@ -58,32 +58,30 @@ class CartDao {
             if (deletedCart) {
                 return deletedCart;
             } else {
-                throw new Error(`Cart not found for ID: ${cartId}`);
+                logger.warn(`--Error: carrito no encontrado con ID: ${cartId}`);
             }
             } catch (error) {
-            throw new Error(`Error deleting cart: ${error}`);
+            logger.error(`${error} --Error al intentar borrar carrito`);
             }
-        }
+        };
 
         async deleteCartItem(cartId, itemName) {
         try {
         await connectToDb();
         const cart = await cartModel.findById(cartId);
         if (!cart) {
-            throw new Error(`Carrito con ID "${cartId}" no encontrado`);
+            logger.warn(`--Carrito con ID "${cartId}" no encontrado`);
         }
-
+        
         const updatedProducts = cart.products.filter(item => item.product !== itemName);
         cart.products = updatedProducts;
         await cart.save();
 
         return cart;
         } catch (error) {
-        throw new Error(`Error al eliminar el item del carrito: ${error}`);
+        logger.error(`${error} --Error al eliminar el item del carrito`);
         }
-    }
-
-
+    };
 };
 
 export const cartDao = new CartDao();
