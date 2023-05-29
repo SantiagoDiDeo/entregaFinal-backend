@@ -1,20 +1,20 @@
-.user{
-    display: inline;
-    color: blue;
-    font-weight: bold;
-  }
-  
-  .date{
-    display: inline;
-    color: brown;
-  }
-  
-  .mensaje{
-    display: inline;
-    color: green;
-    font-style: italic;
-  }
+.user {
+  display: inline;
+  color: blue;
+  font-weight: bold;
+}
 
-  #logout {
-    display: flex
-  }
+.date {
+  display: inline;
+  color: brown;
+}
+
+.mensaje {
+  display: inline;
+  color: green;
+  font-style: italic;
+}
+
+#logout {
+  display: flex;
+}

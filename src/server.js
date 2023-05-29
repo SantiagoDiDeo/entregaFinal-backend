@@ -1,47 +1,53 @@
-import http from 'http';
-import cluster from 'cluster';
-import logger from '../logger/logger.js';
-import {PORT} from '../environments/env.js';
-import app from '../config/appConfig.js';
-import { initializeWebsockets } from '../config/socketConfig.js';
+import http from "http";
+import cluster from "cluster";
+import logger from "../logger/logger.js";
+import { PORT } from "../environments/env.js";
+import app from "../config/appConfig.js";
+import { initializeWebsockets } from "../config/socketConfig.js";
 
 const httpServer = http.createServer(app);
 initializeWebsockets(httpServer);
 
-httpServer.on('error', (error) => {
-    console.log('ocurrio un error: ', error);
+httpServer.on("error", (error) => {
+  console.log("ocurrio un error: ", error);
 });
 
 /* cluster | server on */
 
-let mode = 'FORK';
+let mode = "FORK";
 if (process.argv.length > 2) {
-    const procArgv = process.argv[2].toUpperCase();
-    console.log(procArgv)
-    if (procArgv === 'CLUSTER') {
-        mode = 'CLUSTER';
-    };
-};
+  const procArgv = process.argv[2].toUpperCase();
+  console.log(procArgv);
+  if (procArgv === "CLUSTER") {
+    mode = "CLUSTER";
+  }
+}
 
-if (mode === 'CLUSTER') {
-    if (cluster.isPrimary) {
-        const numCPUs = require('os').cpus().length;
-        for (let i = 0; i < numCPUs; i++) {
-            cluster.fork();
-        }
-        cluster.on('exit', (worker) => {
-            console.log(`Process ${worker.process.pid} died`);
-            cluster.fork();
-        });
-    } else {
-        httpServer.listen(PORT, () => {
-        console.log(`Servidor en modo cluster corriendo en el proceso ${process.pid}`);
-    });
+if (mode === "CLUSTER") {
+  if (cluster.isPrimary) {
+    const numCPUs = require("os").cpus().length;
+    for (let i = 0; i < numCPUs; i++) {
+      cluster.fork();
     }
-} else {
-    httpServer.listen(PORT, () => {
-        const horaActual = new Date().toLocaleTimeString();
-        console.log(` (${horaActual}) Servidor en modo fork corriendo en el proceso ${process.pid} en puerto ${PORT}`);
-        console.log(`Servidor en modo fork corriendo en el proceso ${process.pid} en puerto ${PORT}`);
+    cluster.on("exit", (worker) => {
+      console.log(`Process ${worker.process.pid} died`);
+      cluster.fork();
     });
-};  
+  } else {
+    httpServer.listen(PORT, () => {
+      console.log(
+        `Servidor en modo cluster corriendo en el proceso ${process.pid}`
+      );
+    });
+  }
+} else {
+  httpServer.listen(PORT, () => {
+    const horaActual = new Date().toLocaleTimeString();
+    console.log(
+      ` (${horaActual}) Servidor en modo fork corriendo en el proceso ${process.pid} en puerto ${PORT}`
+    );
+    console.log(
+      `Servidor en modo fork corriendo en el proceso ${process.pid} en puerto ${PORT}`
+    );
+  });
+}

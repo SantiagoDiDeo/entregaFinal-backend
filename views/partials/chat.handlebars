@@ -1,10 +1,26 @@
 <table id="message"></table>
 <form id="messageForm">
-	<div id= "" class="row">
-        <label for="userEmail" class="form-label">Usuario</label>
-        <div class="col-6 mb-3">      
-        <input type="email" class="form-control" id="userEmail" aria-describedby="pictureHelp">
-    </div>
-    <input type="text" name="mensaje" id="userMensaje" placeholder="Ingrese su mensaje">
-    <button class="btn btn-dark" type="button" onclick="addMessage(document.getElementById('messageForm'))" id="button">Add</button>
+  <div id="" class="row">
+    <label for="userEmail" class="form-label">Usuario</label>
+  </div>
+  <div class="col-6 mb-3">
+    <input
+      type="email"
+      class="form-control"
+      id="userEmail"
+      aria-describedby="pictureHelp"
+    />
+  </div>
+  <input
+    type="text"
+    name="mensaje"
+    id="userMensaje"
+    placeholder="Ingrese su mensaje"
+  />
+  <button
+    class="btn btn-dark"
+    type="button"
+    onclick="addMessage(document.getElementById('messageForm'))"
+    id="button"
+  >Add</button>
 </form>
