@@ -19,13 +19,13 @@ cartRouter.use(passport.initialize());
 cartRouter.use(passport.session());
 
 cartRouter.get("/", async (req, res) => {
-  //falta el authenticate
+  //falta passport authenticate 'jwt'
   const username = "juancarlos1"; //aca va req.session.passport.user.username;
   const cart = await getCartByUsernameController(username);
   res.render("cart", { cart });
 });
 
-cartRouter.post("/order", async (req, res) => {
+cartRouter.post("/order", async (req, res) => { //falta passport authenticate 'jwt'
   try {
     const username = "juancarlos1"; // aca va req.session.passport.user.username
     const order = await newOrderController(username);
@@ -40,7 +40,7 @@ cartRouter.post("/order", async (req, res) => {
   }
 });
 
-cartRouter.delete("/:id/:title", async (req, res) => {
+cartRouter.delete("/:id/:title", async (req, res) => { //falta passport authenticate 'jwt'
   try {
     const deleted = await deleteCartItemController(
       req.params.id,
@@ -52,7 +52,7 @@ cartRouter.delete("/:id/:title", async (req, res) => {
   }
 });
 
-cartRouter.delete("/:id", async (req, res) => {
+cartRouter.delete("/:id", async (req, res) => { //falta passport authenticate 'jwt'
   try {
     const { id } = req.params;
     const deletedCart = await deleteCartController(id);

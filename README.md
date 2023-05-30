@@ -69,3 +69,7 @@ Se encuentra la configuracion de envio de mail.
 ## Views
 
 Esquemas y plantillas realizadas con handlebars, para generar la vista frontEnd.
+
+### Aclaracion
+
+Hay parte del codigo que tiene comentarios por falta de informacion, ya que hubo un problema que no pude solucionar con respecto a el guardado y uso posterior de  req.session, el cual al crear un usuario o loguearse, se genera la informacion del usuario en req.sesion.passport.user, pero no llega en la ruta siguiente de productos, por lo tanto, para poder seguir avanzando, introduje manualmente la informacion de usuario, y comente donde tengo el error con la sesion, que es que no puedo capturar esa data, llega un array vacio.

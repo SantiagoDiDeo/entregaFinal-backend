@@ -73,3 +73,113 @@
 [2023-05-29T16:11:46.799] [ERROR] default - TypeError: chatDao.getAllChatsByUserDto is not a function --Error al buscar chat por params.username
 [2023-05-29T16:12:43.570] [ERROR] default - TypeError: chatDao.getAllChatsByUserDto is not a function --Error al buscar chat por params.username
 [2023-05-29T16:30:21.673] [ERROR] default - TypeError: chatDao.getAllChatsByUserDto is not a function --Error al buscar chat por params.username
+[2023-05-29T19:27:27.340] [WARN] default - Session {
+  cookie: {
+    path: '/',
+    _expires: 2023-05-29T22:28:19.644Z,
+    originalMaxAge: 60000,
+    httpOnly: true,
+    secure: false
+  }
+} no llega la informacion de session
+[2023-05-29T19:27:27.557] [WARN] default - carrito {
+  username: 'juancarlos1',
+  products: [],
+  address: 'casa',
+  _id: new ObjectId("647526cfee136d71c8d53c5c"),
+  timestamp: 2023-05-29T22:27:27.360Z,
+  __v: 0
+} creado exitosamete
+[2023-05-29T19:29:34.096] [WARN] default - Session {
+  cookie: {
+    path: '/',
+    _expires: 2023-05-29T22:30:34.095Z,
+    originalMaxAge: 60000,
+    httpOnly: true,
+    secure: false
+  }
+} no llega la informacion de session
+[2023-05-29T19:29:34.321] [WARN] default - carrito {
+  username: 'juancarlos1',
+  products: [],
+  address: 'casa',
+  _id: new ObjectId("6475274eee136d71c8d53c62"),
+  timestamp: 2023-05-29T22:29:34.105Z,
+  __v: 0
+} creado exitosamete
+[2023-05-29T21:09:27.735] [WARN] default - Session {
+  cookie: {
+    path: '/',
+    _expires: 2023-05-30T00:10:22.658Z,
+    originalMaxAge: 60000,
+    httpOnly: true,
+    secure: false
+  }
+} no llega la informacion de session
+[2023-05-29T21:09:28.043] [WARN] default - carrito {
+  username: 'juancarlos1',
+  products: [],
+  address: 'casa',
+  _id: new ObjectId("64753eb763714db5e83647d4"),
+  timestamp: 2023-05-30T00:09:27.793Z,
+  __v: 0
+} creado exitosamete
+[2023-05-29T21:09:40.540] [WARN] default - Session {
+  cookie: {
+    path: '/',
+    _expires: 2023-05-30T00:10:31.790Z,
+    originalMaxAge: 60000,
+    httpOnly: true,
+    secure: false
+  },
+  passport: {}
+} no llega la informacion de session
+[2023-05-29T21:09:40.741] [WARN] default - carrito {
+  username: 'juancarlos1',
+  products: [],
+  address: 'casa',
+  _id: new ObjectId("64753ec463714db5e83647da"),
+  timestamp: 2023-05-30T00:09:40.551Z,
+  __v: 0
+} creado exitosamete
+[2023-05-29T21:25:59.374] [WARN] default - Session {
+  cookie: {
+    path: '/',
+    _expires: 2023-05-30T00:26:53.056Z,
+    originalMaxAge: 60000,
+    httpOnly: true,
+    secure: false
+  },
+  passport: {}
+} no llega la informacion de session
+[2023-05-29T21:25:59.569] [WARN] default - carrito {
+  username: 'juancarlos1',
+  products: [],
+  address: 'casa',
+  _id: new ObjectId("6475429763714db5e83647e7"),
+  timestamp: 2023-05-30T00:25:59.386Z,
+  __v: 0
+} creado exitosamete
+[2023-05-29T21:26:10.842] [WARN] default - email sent {
+  "accepted": [
+    "juancarlos@mail.com"
+  ],
+  "rejected": [],
+  "ehlo": [
+    "PIPELINING",
+    "8BITMIME",
+    "SMTPUTF8",
+    "AUTH LOGIN PLAIN"
+  ],
+  "envelopeTime": 754,
+  "messageTime": 555,
+  "messageSize": 516,
+  "response": "250 Accepted [STATUS=new MSGID=ZGfoOlZPgCu2LDEXZHVCo9FHPwfrH7XCAAAACXotw1qkimKLwHbRa1-sn6g]",
+  "envelope": {
+    "from": "megane98@ethereal.email",
+    "to": [
+      "juancarlos@mail.com"
+    ]
+  },
+  "messageId": "<0d32928b-4559-1de2-b839-ff0aff1c9c0b@ethereal.email>"
+}

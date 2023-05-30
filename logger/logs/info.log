@@ -1308,3 +1308,220 @@
 [2023-05-29T17:55:17.094] [INFO] default - --Base de datos conectada correctamente (connectToDb)
 [2023-05-29T17:55:25.174] [INFO] default - --MongoDB conectado correctamente (connectMongo)
 [2023-05-29T17:55:25.175] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:22:36.444] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:22:36.448] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:22:43.154] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:22:43.156] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:22:43.784] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:22:43.785] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:22:44.176] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:22:44.176] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:22:44.363] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:22:44.364] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:27:16.982] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:27:16.987] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:27:27.340] [WARN] default - Session {
+  cookie: {
+    path: '/',
+    _expires: 2023-05-29T22:28:19.644Z,
+    originalMaxAge: 60000,
+    httpOnly: true,
+    secure: false
+  }
+} no llega la informacion de session
+[2023-05-29T19:27:27.350] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:27:27.352] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:27:27.381] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:27:27.384] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:27:27.557] [WARN] default - carrito {
+  username: 'juancarlos1',
+  products: [],
+  address: 'casa',
+  _id: new ObjectId("647526cfee136d71c8d53c5c"),
+  timestamp: 2023-05-29T22:27:27.360Z,
+  __v: 0
+} creado exitosamete
+[2023-05-29T19:27:28.063] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:27:28.064] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:27:29.370] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:27:29.374] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:27:29.559] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:27:29.560] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:29:34.096] [WARN] default - Session {
+  cookie: {
+    path: '/',
+    _expires: 2023-05-29T22:30:34.095Z,
+    originalMaxAge: 60000,
+    httpOnly: true,
+    secure: false
+  }
+} no llega la informacion de session
+[2023-05-29T19:29:34.102] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:29:34.103] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:29:34.321] [WARN] default - carrito {
+  username: 'juancarlos1',
+  products: [],
+  address: 'casa',
+  _id: new ObjectId("6475274eee136d71c8d53c62"),
+  timestamp: 2023-05-29T22:29:34.105Z,
+  __v: 0
+} creado exitosamete
+[2023-05-29T19:29:34.595] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:29:34.596] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:31:48.101] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:31:48.103] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:31:48.312] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:31:48.313] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:31:48.494] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:31:48.495] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:31:48.713] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:31:48.715] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:31:48.927] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T19:31:48.928] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T19:31:52.377] [INFO] default - email sent {
+  "accepted": [
+    "juancarlos@mail.com"
+  ],
+  "rejected": [],
+  "ehlo": [
+    "PIPELINING",
+    "8BITMIME",
+    "SMTPUTF8",
+    "AUTH LOGIN PLAIN"
+  ],
+  "envelopeTime": 745,
+  "messageTime": 546,
+  "messageSize": 516,
+  "response": "250 Accepted [STATUS=new MSGID=ZGfoOlZPgCu2LDEXZHUn2FMFHbGELooJAAAACBVWG3XePPcPXLOUijDoIyg]",
+  "envelope": {
+    "from": "megane98@ethereal.email",
+    "to": [
+      "juancarlos@mail.com"
+    ]
+  },
+  "messageId": "<fb3be437-d217-3381-240b-258638f3a037@ethereal.email>"
+}
+[2023-05-29T21:09:19.778] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:09:19.807] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:09:27.735] [WARN] default - Session {
+  cookie: {
+    path: '/',
+    _expires: 2023-05-30T00:10:22.658Z,
+    originalMaxAge: 60000,
+    httpOnly: true,
+    secure: false
+  }
+} no llega la informacion de session
+[2023-05-29T21:09:27.754] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:09:27.756] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:09:27.843] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:09:27.845] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:09:28.043] [WARN] default - carrito {
+  username: 'juancarlos1',
+  products: [],
+  address: 'casa',
+  _id: new ObjectId("64753eb763714db5e83647d4"),
+  timestamp: 2023-05-30T00:09:27.793Z,
+  __v: 0
+} creado exitosamete
+[2023-05-29T21:09:28.616] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:09:28.618] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:09:30.012] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:09:30.013] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:09:30.230] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:09:30.231] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:09:40.540] [WARN] default - Session {
+  cookie: {
+    path: '/',
+    _expires: 2023-05-30T00:10:31.790Z,
+    originalMaxAge: 60000,
+    httpOnly: true,
+    secure: false
+  },
+  passport: {}
+} no llega la informacion de session
+[2023-05-29T21:09:40.546] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:09:40.547] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:09:40.741] [WARN] default - carrito {
+  username: 'juancarlos1',
+  products: [],
+  address: 'casa',
+  _id: new ObjectId("64753ec463714db5e83647da"),
+  timestamp: 2023-05-30T00:09:40.551Z,
+  __v: 0
+} creado exitosamete
+[2023-05-29T21:09:41.006] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:09:41.008] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:25:15.170] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:25:15.188] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:25:22.557] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:25:22.560] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:25:49.647] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:25:49.648] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:25:50.252] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:25:50.253] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:25:50.427] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:25:50.428] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:25:50.612] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:25:50.613] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:25:50.854] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:25:50.855] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:25:51.357] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:25:51.358] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:25:51.557] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:25:51.558] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:25:59.374] [WARN] default - Session {
+  cookie: {
+    path: '/',
+    _expires: 2023-05-30T00:26:53.056Z,
+    originalMaxAge: 60000,
+    httpOnly: true,
+    secure: false
+  },
+  passport: {}
+} no llega la informacion de session
+[2023-05-29T21:25:59.382] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:25:59.383] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:25:59.569] [WARN] default - carrito {
+  username: 'juancarlos1',
+  products: [],
+  address: 'casa',
+  _id: new ObjectId("6475429763714db5e83647e7"),
+  timestamp: 2023-05-30T00:25:59.386Z,
+  __v: 0
+} creado exitosamete
+[2023-05-29T21:25:59.822] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:25:59.823] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:26:06.548] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:26:06.549] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:26:06.725] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:26:06.726] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:26:06.905] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:26:06.906] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:26:07.080] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:26:07.081] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:26:07.291] [INFO] default - --MongoDB conectado correctamente (connectMongo)
+[2023-05-29T21:26:07.292] [INFO] default - --Base de datos conectada correctamente (connectToDb)
+[2023-05-29T21:26:10.842] [WARN] default - email sent {
+  "accepted": [
+    "juancarlos@mail.com"
+  ],
+  "rejected": [],
+  "ehlo": [
+    "PIPELINING",
+    "8BITMIME",
+    "SMTPUTF8",
+    "AUTH LOGIN PLAIN"
+  ],
+  "envelopeTime": 754,
+  "messageTime": 555,
+  "messageSize": 516,
+  "response": "250 Accepted [STATUS=new MSGID=ZGfoOlZPgCu2LDEXZHVCo9FHPwfrH7XCAAAACXotw1qkimKLwHbRa1-sn6g]",
+  "envelope": {
+    "from": "megane98@ethereal.email",
+    "to": [
+      "juancarlos@mail.com"
+    ]
+  },
+  "messageId": "<0d32928b-4559-1de2-b839-ff0aff1c9c0b@ethereal.email>"
+}

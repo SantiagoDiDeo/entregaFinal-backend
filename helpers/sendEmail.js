@@ -19,6 +19,6 @@ export const handleSendEmail = async (text, subject, to) => {
     text,
   });
 
-  logger.info(`email sent ${JSON.stringify(info, null, 2)}`);
+  logger.warn(`email sent ${JSON.stringify(info, null, 2)}`);
   return info;
 };

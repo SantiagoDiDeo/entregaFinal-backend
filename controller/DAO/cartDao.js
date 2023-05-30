@@ -3,13 +3,14 @@ import { cartModel } from "../../DB/model/modelSchema.js";
 import logger from "../../logger/logger.js";
 
 class CartDao {
-  async createCart(username, address) {
+  async createCart(username, address, products) {
     try {
       await connectToDb();
+      products = [];
       const cart = new cartModel({
         username: username,
         address: address,
-        products: [],
+        products: products,
       });
       await cart.save();
       return cart;

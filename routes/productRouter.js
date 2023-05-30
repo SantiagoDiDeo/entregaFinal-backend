@@ -19,8 +19,9 @@ const productRouter = Router();
 productRouter.use(passport.initialize());
 productRouter.use(passport.session());
 
-productRouter.get("/", async (req, res) => {
+productRouter.get("/", async (req, res) => { 
   try {
+    console.log(req.body);
     const products = await getAllProductsController();
     res.render("productsList", { products });
   } catch (err) {
@@ -32,6 +33,10 @@ productRouter.get("/", async (req, res) => {
 
 productRouter.post("/", async (req, res) => {
   try {
+    // Al intentar traer los datos del usuario por req.session, esta retorna vacia.
+    logger.warn(req.session, 'no llega la informacion de session');
+    // const username = req.session.passport.user.username;
+    // const address = req.session.passport.user.address;
     let data = await req.body;
     const username = "juancarlos1"; //aca va req.session.passport.user.username
     const address = "casa"; //aca va req.session.passport.user.address
@@ -54,7 +59,7 @@ productRouter.post("/", async (req, res) => {
   }
 });
 
-productRouter.get("/admin", async (req, res) => {
+productRouter.get("/admin", async (req, res) => { //falta passport authenticate 'jwt'
   try {
     const { id } = req.params;
     await getProductsRouter(req, res, "productsAdmin", id);
@@ -88,7 +93,7 @@ productRouter.get("/category/:category", async (req, res) => {
   }
 });
 
-productRouter.post("/admin", async (req, res) => {
+productRouter.post("/admin", async (req, res) => { //falta passport authenticate 'jwt'
   try {
     const productToAdd = await req.body;
     await createProductController(productToAdd);
@@ -98,7 +103,7 @@ productRouter.post("/admin", async (req, res) => {
   }
 });
 
-productRouter.put("/:id", async (req, res) => {
+productRouter.put("/:id", async (req, res) => { //falta passport authenticate 'jwt'
   try {
     const id = req.params.id;
     const replace = req.body;
@@ -113,7 +118,7 @@ productRouter.put("/:id", async (req, res) => {
   }
 });
 
-productRouter.delete("/:id", async (req, res) => {
+productRouter.delete("/:id", async (req, res) => { //falta passport authenticate 'jwt'
   try {
     const { id } = req.params;
 

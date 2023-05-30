@@ -1,13 +1,13 @@
 import { cartDao } from "../DAO/cartDao.js";
 import logger from "../../logger/logger.js";
 
-const createCartDto = async (username, address) => {
+const createCartDto = async (username, address, products) => {
   const cart = {
     username: username,
     address: address,
     products: [],
   };
-  const createdCart = await cartDao.createCart(cart.username, cart.address);
+  const createdCart = await cartDao.createCart(cart.username, cart.address, cart.products);
   return createdCart;
 };
 

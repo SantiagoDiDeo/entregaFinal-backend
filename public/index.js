@@ -1,5 +1,3 @@
-import io from "socket.io";
-const socket = io.connect();
 
 //chat
 const userEmail = document.getElementById("userEmail");
@@ -20,13 +18,13 @@ function toast(mensaje, color1, color2) {
     text: mensaje,
     duration: 4000,
     newWindow: true,
-    gravity: "top", // `top` or `bottom`
-    position: "right", // `left`, `center` or `right`
-    stopOnFocus: true, // Prevents dismissing of toast on hover
+    gravity: "top", 
+    position: "right", 
+    stopOnFocus: true, 
     style: {
       background: `linear-gradient(to right, ${color1}, ${color2})`,
     },
-    onClick: function () {}, // Callback after click
+    onClick: function () {}, 
   }).showToast();
 }
 
@@ -53,19 +51,19 @@ const handleLogin = async () => {
   } else {
     toast("login exitoso", "#2ECC71", "#82E0AA");
     window.location.href = "/products";
-    // const data = {
-    //   username: usernameInput.value
-    // }
-    // console.log(data, 'here data')
-    // const response = await fetch(`http://localhost:8080/login/`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data)
+    const data = { 
+      username: usernameInput.value
+    }
+    console.log(data, 'here data')
+    const response = await fetch(`http://localhost:8080/products/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
 
-    // })
-    // .then((response) => location.replace('http://localhost:8080/products'))
+    })
+    .then((response) => window.location.href('/products'))
   }
 };
 
@@ -147,35 +145,3 @@ const handleBuy = () => {
     });
   }
 };
-
-/* CHAT - SOCKET */
-// socket.on('connect', () => {
-//     console.log('socket connected');
-// });
-
-// socket.on('chat', async (data) => {
-
-//     htmlToRender = '';
-//     await data.forEach((element) => {
-
-//         htmlToRender = htmlToRender + `
-//         <tr>
-//             <th><h1 class='user'>${element.username}</h1></th>
-//             <th><h1 class='mensaje'>${element.message}</h1></th>
-//         </tr>
-//         `
-//     });
-
-//     document.getElementById('message').innerHTML = htmlToRender;
-//     });
-
-// const addMessage = async (messageToAdd) => {
-
-//     messageToAdd =  {
-//         username: userEmail.value,
-//         body: userMensaje.value
-//       }
-// if(messageToAdd.username) {
-//     await socket.emit('newMessage', messageToAdd);
-//   };
-// };
